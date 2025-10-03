@@ -1,4 +1,3 @@
-```
 # 🌮 Chatbot IA para Restaurante Mexicano
 
 <div align="center">
