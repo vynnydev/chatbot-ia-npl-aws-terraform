@@ -1,0 +1,278 @@
+{
+    "compra": {
+      "patterns": [
+        "quero um burrito",
+        "me vê dois tacos",
+        "vou querer uma quesadilla",
+        "quero pedir um nachos",
+        "gostaria de um combo",
+        "quero fazer um pedido",
+        "vou querer três enchiladas",
+        "me traz um burrito de frango",
+        "quero pedir comida",
+        "vou pedir um taco vegetariano",
+        "quero uma fajita de carne",
+        "me vê um guacamole",
+        "quero churros de sobremesa",
+        "vou querer um combo família",
+        "me manda dois burritos",
+        "queria pedir delivery",
+        "quero fazer meu pedido agora",
+        "vou querer para viagem"
+      ],
+      "responses": [
+        "Perfeito! Que delícia! Qual prato você gostaria de pedir? Temos burritos, tacos, quesadillas, nachos, enchiladas, fajitas e muito mais!",
+        "Ótima escolha! Me conta, o que você vai querer? Nossos burritos e tacos são os favoritos dos clientes!",
+        "Show! Vamos fazer seu pedido! Qual o prato que te deixa com água na boca? 🌮",
+        "Que fome boa! Me diz o que você quer pedir e eu te ajudo com o restante!"
+      ]
+    },
+    
+    "cardapio": {
+      "patterns": [
+        "qual o cardápio",
+        "o que vocês tem",
+        "quais são os pratos",
+        "me mostra o menu",
+        "o que tem pra comer",
+        "quais opções vocês oferecem",
+        "tem o que de comida",
+        "me fala os pratos",
+        "quero ver o cardápio",
+        "que tipo de comida vocês fazem",
+        "quais são as opções",
+        "tem comida vegetariana",
+        "cardapio completo",
+        "lista de pratos",
+        "me mostra as opções"
+      ],
+      "responses": [
+        "Nosso cardápio é incrível! 🌮\n\n🌯 **Burritos** - Recheados generosamente\n🌮 **Tacos** - Crocantes e saborosos\n🧀 **Quesadillas** - Queijo derretido delicioso\n🥑 **Nachos** - Com guacamole fresco\n🌶️ **Enchiladas** - Tradicional mexicano\n🍖 **Fajitas** - Grelhadas na hora\n🍰 **Churros** - Sobremesa perfeita\n\nTodos os pratos vêm com opções vegetarianas! O que te interessa?",
+        "Temos um menu variado! Burritos (R$ 25), Tacos (R$ 18 - 3 unidades), Quesadillas (R$ 22), Nachos (R$ 20), Enchiladas (R$ 28), Fajitas (R$ 32) e Churros (R$ 12). Qual chama sua atenção?",
+        "Nosso cardápio tem o melhor da culinária mexicana! Desde tacos tradicionais até fajitas grelhadas. Também temos opções vegetarianas e veganas. Me diz, o que você prefere?",
+        "Aqui no El Sabor você encontra: Burritos, Tacos, Quesadillas, Nachos, Enchiladas, Fajitas e Churros. Todos feitos com ingredientes frescos! Quer saber mais sobre algum?"
+      ]
+    },
+    
+    "preco": {
+      "patterns": [
+        "quanto custa",
+        "qual o preço",
+        "qual o valor",
+        "quanto é",
+        "preço do burrito",
+        "valor do taco",
+        "quanto sai",
+        "preços",
+        "tabela de preços",
+        "quanto fica",
+        "qual o preço do combo",
+        "valor da quesadilla",
+        "quanto custa o nachos",
+        "preço das enchiladas",
+        "valor da fajita"
+      ],
+      "responses": [
+        "Nossos preços são:\n\n🌯 Burrito: R$ 25,00\n🌮 Tacos (3x): R$ 18,00\n🧀 Quesadilla: R$ 22,00\n🥑 Nachos: R$ 20,00\n🌶️ Enchiladas: R$ 28,00\n🍖 Fajitas: R$ 32,00\n🍰 Churros: R$ 12,00\n\nTambém temos combos promocionais! Quer saber mais?",
+        "Os valores variam de R$ 12 (churros) até R$ 32 (fajitas). Temos combos que saem mais em conta! Qual prato você quer saber o preço?",
+        "Trabalhamos com preços justos! O prato mais pedido é o burrito por R$ 25. Quer montar um combo?",
+        "Nossos pratos custam entre R$ 12 e R$ 32. Vale muito a pena pela qualidade! Posso te ajudar com algum em especial?"
+      ]
+    },
+    
+    "entrega": {
+      "patterns": [
+        "quanto tempo demora",
+        "tempo de entrega",
+        "quando chega",
+        "demora quanto",
+        "prazo de entrega",
+        "em quanto tempo fica pronto",
+        "quanto tempo leva",
+        "delivery demora",
+        "tempo médio",
+        "rapidez da entrega",
+        "vocês entregam rápido",
+        "qual o prazo",
+        "quando vai chegar",
+        "horário de entrega",
+        "entrega em quanto tempo"
+      ],
+      "responses": [
+        "Nosso tempo médio de entrega é de 35-45 minutos! ⏱️ Fazemos tudo fresquinho na hora para você. Dependendo da distância pode variar um pouquinho.",
+        "Geralmente entregamos em 40 minutos! 🚗 Preparamos seu pedido com carinho e agilidade. Posso confirmar seu endereço?",
+        "O tempo estimado é de 35 a 45 minutos. Mas pode ficar tranquilo, vale a pena a espera! Comida quentinha e deliciosa chegando aí!",
+        "Em média 40 minutinhos! Fazemos questão de entregar tudo fresquinho. O endereço de entrega é qual?"
+      ]
+    },
+    
+    "agradecimento": {
+      "patterns": [
+        "obrigado",
+        "valeu",
+        "muito obrigado",
+        "obrigada",
+        "agradeço",
+        "thanks",
+        "brigadão",
+        "obg",
+        "vlw",
+        "agradecido",
+        "grato",
+        "mto obrigado",
+        "obrigadão",
+        "valeu mesmo",
+        "show obrigado"
+      ],
+      "responses": [
+        "Por nada! 😊 Estou aqui para ajudar! Precisa de mais alguma coisa?",
+        "Disponha! É um prazer te atender! 🌮",
+        "Imagina! Fico feliz em ajudar! Alguma outra dúvida?",
+        "De nada! Conte sempre com a gente! 💚"
+      ]
+    },
+    
+    "reclamacao": {
+      "patterns": [
+        "pedido atrasado",
+        "não chegou",
+        "tá demorando",
+        "veio errado",
+        "comida fria",
+        "pedido incorreto",
+        "veio faltando",
+        "péssimo atendimento",
+        "delivery ruim",
+        "quero reclamar",
+        "problema com o pedido",
+        "insatisfeito",
+        "quero cancelar",
+        "reembolso",
+        "devolução"
+      ],
+      "responses": [
+        "Sinto muito pelo transtorno! 😔 Vou verificar seu pedido imediatamente. Pode me passar seu número do pedido ou nome?",
+        "Peço desculpas pelo problema! Vamos resolver isso agora. Me ajuda com os detalhes do seu pedido?",
+        "Que chato! Realmente não deveria ter acontecido. Vou encaminhar sua reclamação para nossa equipe. Qual foi o problema exatamente?",
+        "Lamento muito! Vamos corrigir isso o mais rápido possível. Me passa as informações do seu pedido?"
+      ]
+    },
+    
+    "cumprimento": {
+      "patterns": [
+        "oi",
+        "olá",
+        "ola",
+        "bom dia",
+        "boa tarde",
+        "boa noite",
+        "hey",
+        "e aí",
+        "opa",
+        "salve",
+        "eae",
+        "fala",
+        "hello",
+        "oi tudo bem",
+        "olá como vai"
+      ],
+      "responses": [
+        "Olá! Bem-vindo ao El Sabor! 🌮 Como posso te ajudar hoje?",
+        "Oi! Que bom te ver por aqui! Está com fome? Posso te ajudar com o cardápio!",
+        "E aí! Pronto para uma experiência mexicana incrível? Me diz, o que você precisa?",
+        "Olá! Seja bem-vindo(a)! Estou aqui para te ajudar com seu pedido. Quer conhecer nosso cardápio?"
+      ]
+    },
+    
+    "despedida": {
+      "patterns": [
+        "tchau",
+        "até logo",
+        "falou",
+        "flw",
+        "até mais",
+        "bye",
+        "adeus",
+        "até",
+        "vou indo",
+        "tenho que ir",
+        "até breve",
+        "nos vemos",
+        "xau",
+        "tchauzinho",
+        "inté"
+      ],
+      "responses": [
+        "Até logo! Volte sempre! 🌮 Foi um prazer te atender!",
+        "Tchau! Obrigado pela preferência! Até a próxima! 😊",
+        "Até mais! Fica com vontade de voltar, hein! 🌯",
+        "Falou! Espero te ver em breve! Bom apetite se já fez seu pedido! 💚"
+      ]
+    },
+    
+    "personalizacao": {
+      "patterns": [
+        "sem cebola",
+        "sem pimenta",
+        "extra queijo",
+        "mais molho",
+        "sem tomate",
+        "adicionar guacamole",
+        "tirar ingrediente",
+        "pode personalizar",
+        "quero mudar",
+        "sem picante",
+        "pouca pimenta",
+        "bastante queijo",
+        "molho à parte",
+        "sem salada",
+        "vegetariano"
+      ],
+      "responses": [
+        "Claro! Personalizamos do jeito que você quiser! 👨‍🍳 Me diz como você quer seu prato!",
+        "Com certeza! Pode pedir do seu jeito! Quer adicionar ou remover algo?",
+        "Sem problemas! Fazemos exatamente como você prefere. Quais mudanças você quer fazer?",
+        "Pode deixar! Montamos seu prato sob medida. Me conta o que você quer modificar!"
+      ]
+    },
+    
+    "duvida": {
+      "patterns": [
+        "o que é burrito",
+        "como é o taco",
+        "diferença entre",
+        "o que tem no prato",
+        "ingredientes",
+        "o que vem",
+        "como funciona",
+        "explica",
+        "não conheço",
+        "o que é quesadilla",
+        "tem opção vegetariana",
+        "é picante",
+        "tem glúten",
+        "acompanha bebida",
+        "que tamanho"
+      ],
+      "responses": [
+        "Ótima pergunta! Me diz qual prato você quer saber mais e eu explico tudinho! 📝",
+        "Claro que posso explicar! Qual prato ou ingrediente você quer conhecer melhor?",
+        "Adoramos explicar! Sobre qual item do cardápio você tem dúvida?",
+        "Pode perguntar à vontade! Estou aqui para te ajudar a escolher o melhor prato. Qual sua dúvida?"
+      ]
+    },
+    
+    "unknown": {
+      "patterns": [
+        "asdfasdf",
+        "???",
+        "blablabla"
+      ],
+      "responses": [
+        "Desculpa, não entendi muito bem 😅 Pode reformular? Estou aqui para ajudar com pedidos, cardápio, preços ou dúvidas!",
+        "Hmm, não captei... Você quer saber sobre nosso cardápio, fazer um pedido ou tirar alguma dúvida?",
+        "Ops! Não compreendi. Posso te ajudar com: cardápio, pedidos, preços, tempo de entrega. O que você precisa?",
+        "Não consegui entender... Tenta me dizer de outra forma? Estou aqui para te ajudar! 🌮"
+      ]
+    }
+  }

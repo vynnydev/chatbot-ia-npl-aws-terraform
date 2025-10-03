@@ -1,0 +1,80 @@
+# Terraform
+infraestructure/.terraform/
+infraestructure/.terraform.lock.hcl
+infraestructure/terraform.tfstate
+infraestructure/terraform.tfstate.backup
+infraestructure/*.tfvars
+!infraestructure/terraform.tfvars.example
+infraestructure/.terraform.tfstate.lock.info
+infraestructure/crash.log
+infraestructure/crash.*.log
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+backend/venv/
+backend/env/
+backend/.venv/
+backend/.env
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+
+# Node.js
+node_modules/
+frontend-web/.next/
+frontend-web/out/
+frontend-web/build/
+frontend-web/.env.local
+frontend-web/.env.production.local
+frontend-mobile/node_modules/
+frontend-mobile/.expo/
+frontend-mobile/.expo-shared/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# AWS
+.aws/
+
+# Docker
+*.log
+
+# Secrets
+*.pem
+*.key
+.env
+.env.local
+.env.production
+secrets/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Backups
+*.backup
+*.bak
+
+# Misc
+.cache/
+tmp/
+temp/
