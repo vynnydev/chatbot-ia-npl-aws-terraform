@@ -20,6 +20,7 @@
 ---
 
 ## 📋 Sobre o Projeto
+Aaaaaaaaaaaaa
 
 Sistema completo de chatbot com **Processamento de Linguagem Natural (NLP)** desenvolvido para atender pedidos em um restaurante mexicano moderno chamado **"El Sabor"**.
 
