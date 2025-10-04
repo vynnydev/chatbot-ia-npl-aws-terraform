@@ -64,6 +64,9 @@ Cada intenção possui **15+ frases de treinamento** e **4+ respostas variadas**
 
 ## 🏗️ Arquitetura
 
+### Diagrama de Arquitetura
+📐 **[Diagrama completo em Draw.io](./docs/aws-chatbot-architecture.png)**
+
 ### Stack Tecnológico
 
 #### **Backend**
@@ -94,9 +97,6 @@ Cada intenção possui **15+ frases de treinamento** e **4+ respostas variadas**
 - **VPC**: Rede privada virtual
 - **CloudWatch**: Logs e métricas
 - **Terraform 1.5+**: Infrastructure as Code
-
-### Diagrama de Arquitetura
-📐 **[Diagrama completo em Draw.io](./docs/architecture-diagram.drawio.xml)**
 
 ### Componentes
 
