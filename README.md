@@ -26,10 +26,10 @@ Sistema completo de chatbot com **Processamento de Linguagem Natural (NLP)** des
 O projeto demonstra uma arquitetura **cloud-native serverless** completa utilizando AWS ECS Fargate, RDS PostgreSQL, ElastiCache Redis e **Infrastructure as Code (IaC)** com Terraform.
 
 ### 🌐 Imagens do El Sabor Chatbot:
-🌐 **[Imagens do El Sabor Chatbot](./docs/app.png)**
+🌐 **[Imagens do El Sabor Chatbot](./docs/app.png)
 
 ### 🤖 Imagens do El Sabor Chatbot apresentando o cardápio>
-🤖 **[Imagens do El Sabor Chatbot](./docs/order-app.png)**
+🤖 **[Imagens do El Sabor Chatbot](./docs/order-app.png)
 
 ### ✨ Funcionalidades Principais
 
