@@ -8,7 +8,7 @@ interface HeaderProps {
     subtitle = "Restaurante Mexicano" 
   }: HeaderProps) {
     return (
-      <header className="bg-gradient-to-r from-primary to-accent text-white p-4 shadow-lg">
+      <header className="bg-gradient-to-r from-primary to-accent text-orange-500 p-4 shadow-lg">
         <div className="max-w-4xl mx-auto flex items-center gap-3">
           <div className="text-4xl animate-bounce">🌮</div>
           <div>

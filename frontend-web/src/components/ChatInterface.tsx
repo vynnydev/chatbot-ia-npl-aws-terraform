@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
@@ -5,7 +6,7 @@ import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import MessageBubble from './MessageBubble';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const API_URL = 'http://el-sabor-prod-alb-380735521.us-east-1.elb.amazonaws.com';
 
 interface Intent {
   intent: string;
@@ -26,6 +27,7 @@ export default function ChatInterface() {
   const [loading, setLoading] = useState(false);
   const [sessionId] = useState(() => uuidv4());
   const [isTyping, setIsTyping] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -38,7 +40,6 @@ export default function ChatInterface() {
   }, [messages, isTyping]);
 
   useEffect(() => {
-    // Mensagem de boas-vindas
     const welcomeMessage: Message = {
       id: uuidv4(),
       text: '¡Hola! Bem-vindo ao El Sabor! 🌮\n\nSou seu assistente virtual e estou aqui para te ajudar!\n\nVocê pode:\n• Ver nosso cardápio\n• Fazer pedidos\n• Consultar preços\n• Tirar dúvidas\n\nComo posso te ajudar hoje?',
@@ -62,14 +63,23 @@ export default function ChatInterface() {
     setInput('');
     setLoading(true);
     setIsTyping(true);
+    setError(null);
 
     try {
-      const response = await axios.post(`${API_URL}/api/chat`, {
-        message: input,
-        session_id: sessionId,
-      });
+      const response = await axios.post(
+        `${API_URL}/api/chat`,
+        {
+          message: input,
+          session_id: sessionId,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          timeout: 10000,
+        }
+      );
 
-      // Simular digitação (delay)
       await new Promise((resolve) => setTimeout(resolve, 500));
 
       const botMessage: Message = {
@@ -81,12 +91,24 @@ export default function ChatInterface() {
       };
 
       setMessages((prev) => [...prev, botMessage]);
-    } catch (error) {
-      console.error('Error sending message:', error);
+    } catch (err: any) {
+      console.error('Error sending message:', err);
+
+      let errorText = 'Desculpe, ocorreu um erro ao processar sua mensagem. 😔';
+      
+      if (err.code === 'ECONNABORTED') {
+        errorText = 'A requisição demorou muito. Tente novamente!';
+      } else if (err.response?.status === 503) {
+        errorText = 'O serviço está temporariamente indisponível. Aguarde um momento e tente novamente.';
+      } else if (err.response?.data?.detail) {
+        errorText = `Erro: ${err.response.data.detail}`;
+      }
+
+      setError(errorText);
 
       const errorMessage: Message = {
         id: uuidv4(),
-        text: 'Desculpe, ocorreu um erro ao processar sua mensagem. 😔\n\nPor favor, tente novamente!',
+        text: errorText,
         sender: 'bot',
         timestamp: new Date(),
       };
@@ -97,14 +119,14 @@ export default function ChatInterface() {
       setIsTyping(false);
       inputRef.current?.focus();
     }
-  };
+  }
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
+  const handleKeyPress = (e: KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       sendMessage();
     }
-  };
+  }
 
   const quickActions = [
     { icon: '📋', text: 'Ver cardápio', message: 'Quero ver o cardápio' },
@@ -115,20 +137,30 @@ export default function ChatInterface() {
 
   return (
     <div className="flex flex-col h-full">
-      {/* Messages Area */}
+      {error && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mx-4 mt-4 rounded">
+          <p className="text-sm">{error}</p>
+          <button
+            onClick={() => setError(null)}
+            className="text-xs underline mt-1"
+          >
+            Fechar
+          </button>
+        </div>
+      )}
+
       <div className="flex-1 overflow-y-auto p-4 space-y-2">
         <div className="max-w-4xl mx-auto">
           {messages.map((message) => (
             <MessageBubble
-              key={message.id}
               text={message.text}
+              key={message.id}
               sender={message.sender}
               intents={message.intents}
               timestamp={message.timestamp}
             />
           ))}
 
-          {/* Typing Indicator */}
           {isTyping && (
             <div className="flex justify-start mb-4">
               <div className="bg-white rounded-2xl p-4 shadow-md rounded-bl-none border border-gray-200">
@@ -148,7 +180,6 @@ export default function ChatInterface() {
         </div>
       </div>
 
-      {/* Quick Actions */}
       {messages.length <= 1 && (
         <div className="px-4 pb-2">
           <div className="max-w-4xl mx-auto">
@@ -173,14 +204,13 @@ export default function ChatInterface() {
         </div>
       )}
 
-      {/* Input Area */}
       <div className="bg-white border-t border-gray-200 p-4">
         <div className="max-w-4xl mx-auto flex gap-2">
           <textarea
             ref={inputRef}
             value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyPress={handleKeyPress}
+            onChange={(e: { target: { value: any; }; }) => setInput(e.target.value)}
+            onKeyDown={(e: { key: any; }) => handleKeyPress(e as any)}
             placeholder="Digite sua mensagem..."
             className="flex-1 px-4 py-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
             disabled={loading}
@@ -192,7 +222,7 @@ export default function ChatInterface() {
             disabled={loading || !input.trim()}
             className="px-6 py-3 bg-primary text-white rounded-full hover:bg-accent transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-semibold shadow-md hover:shadow-lg"
           >
-            {loading ? '...' : '📤'}
+            {loading ? '⏳' : '📤'}
           </button>
         </div>
       </div>

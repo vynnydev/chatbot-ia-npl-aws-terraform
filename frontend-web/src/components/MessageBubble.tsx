@@ -29,7 +29,6 @@ export default function MessageBubble({
             : 'bg-white text-gray-800 rounded-bl-none border border-gray-200'
         }`}
       >
-        {/* Avatar/Icon para mensagens do bot */}
         {!isUser && (
           <div className="flex items-center gap-2 mb-2">
             <span className="text-xl">🤖</span>
@@ -37,15 +36,12 @@ export default function MessageBubble({
           </div>
         )}
 
-        {/* Texto da mensagem */}
         <p className="whitespace-pre-wrap text-sm leading-relaxed">{text}</p>
 
-        {/* Exibir intenções apenas para mensagens do bot */}
         {!isUser && intents && intents.length > 0 && (
           <IntentDisplay intents={intents} />
         )}
 
-        {/* Timestamp */}
         <p className={`text-xs mt-2 ${isUser ? 'text-white opacity-70' : 'text-gray-500'}`}>
           {timestamp.toLocaleTimeString('pt-BR', {
             hour: '2-digit',
