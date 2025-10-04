@@ -118,77 +118,23 @@ git clone https://github.com/seu-usuario/chatbot-ia-npl-aws-terraform.git
 cd chatbot-ia-npl-aws-terraform
 ```
 
-### Passo 2: Configure AWS
+## 🌐 Aplicação Online
 
-bash
+**🔗 URLs de Acesso:**
 
-```
-aws configure
-# AWS Access Key ID: [sua-key]
-# AWS Secret Access Key: [seu-secret]
-# Default region: us-east-1
-# Default output format: json
-```
+- **Frontend**: `http://el-sabor-prod-alb-380735521.us-east-1.elb.amazonaws.com/`
+- **API Docs**: `http://el-sabor-prod-alb-380735521.us-east-1.elb.amazonaws.com/docs`
 
-### Passo 3: Configure Variáveis
+**📡 Endpoints da API:**
+```bash
+# Chat
+POST http://el-sabor-prod-alb-380735521.us-east-1.elb.amazonaws.com/api/chat
 
-bash
+# Listar intenções
+GET http://el-sabor-prod-alb-380735521.us-east-1.elb.amazonaws.com/api/intents
 
-```
-cd terraform
-cp terraform.tfvars.example terraform.tfvars
-nano terraform.tfvars
-```
-
-**IMPORTANTE**: Altere a senha do banco de dados em `db_password`!
-
-### Passo 4: Valide a Configuração
-
-bash
-
-```
-chmod +x scripts/validate.sh
-./scripts/validate.sh
-```
-
-### Passo 5: Deploy da Infraestrutura
-
-bash
-
-```
-# Criar backend do Terraform (primeira vez apenas)
-make setup-backend
-
-# Descomente o bloco backend "s3" em terraform/backend.tf
-
-# Inicializar e aplicar
-make init
-make plan
-make apply
-```
-
-⏱️ **Tempo estimado**: 10-15 minutos
-
-### Passo 6: Deploy das Aplicações
-
-bash
-
-```
-# Build e push das imagens Docker
-make deploy
-
-# Aguarde 3-5 minutos para os containers iniciarem
-```
-
-### Passo 7: Acesse a Aplicação
-
-bash
-
-```
-# Obter URL do Load Balancer
-make output | grep alb_url
-
-# URL exemplo: http://el-sabor-prod-alb-123456789.us-east-1.elb.amazonaws.com
+# Histórico de conversa
+GET http://el-sabor-prod-alb-380735521.us-east-1.elb.amazonaws.com/api/history/{session_id}
 ```
 
 **Pronto!** 🎉 Sua aplicação está no ar!
@@ -347,34 +293,132 @@ chatbot-ia-npl-aws-terraform/
 
 * * * * *
 
+🚀 Deploy Completo
+------------------
+
+### Pré-requisitos
+
+bash
+
+```
+# Instalar ferramentas
+aws --version        # AWS CLI
+terraform --version  # Terraform >= 1.5
+docker --version     # Docker
+
+# Configurar AWS
+aws configure
+```
+
+### 1️⃣ Provisionar Infraestrutura
+
+bash
+
+```
+# Clonar repositório
+git clone https://github.com/vynnydev/chatbot-ia-npl-aws-terraform.git
+cd chatbot-ia-npl-aws-terraform
+
+# Configurar variáveis
+cd infrastructure
+cp terraform.tfvars.example terraform.tfvars
+nano terraform.tfvars  # Alterar db_password!
+
+# Provisionar AWS
+terraform init
+terraform plan -out tfplan
+terraform apply tfplan
+```
+
+⏱️ Aguarde 10-15 minutos para criação completa.
+
+### 2️⃣ Deploy do Backend
+
+bash
+
+```
+# Build da imagem (arquitetura correta)
+cd backend
+docker buildx build --platform linux/amd64 -t el-sabor-backend:latest .
+
+# Login no ECR
+aws ecr get-login-password --region us-east-1 |\
+  docker login --username AWS --password-stdin\
+  $(aws sts get-caller-identity --query Account --output text).dkr.ecr.us-east-1.amazonaws.com
+
+# Tag e push
+BACKEND_REPO=$(cd ../infrastructure && terraform output -raw backend_ecr_repository_url)
+docker tag el-sabor-backend:latest $BACKEND_REPO:latest
+docker push $BACKEND_REPO:latest
+
+# Force deployment
+aws ecs update-service\
+  --cluster el-sabor-prod-backend-cluster\
+  --service el-sabor-prod-backend\
+  --force-new-deployment\
+  --region us-east-1
+```
+
+### 3️⃣ Deploy do Frontend
+
+bash
+
+```
+# Build da imagem
+cd frontend-web
+docker buildx build --platform linux/amd64 -t el-sabor-frontend:latest .
+
+# Tag e push
+FRONTEND_REPO=$(cd ../infrastructure && terraform output -raw frontend_ecr_repository_url)
+docker tag el-sabor-frontend:latest $FRONTEND_REPO:latest
+docker push $FRONTEND_REPO:latest
+
+# Force deployment
+aws ecs update-service\
+  --cluster el-sabor-prod-frontend-cluster\
+  --service el-sabor-prod-frontend\
+  --force-new-deployment\
+  --region us-east-1
+```
+
+### 4️⃣ Verificar Deploy
+
+bash
+
+```
+# Pegar URL do ALB
+cd infrastructure
+terraform output alb_url
+
+# Testar backend
+curl http://SEU-ALB-URL/api/chat\
+  -X POST -H "Content-Type: application/json"\
+  -d '{"message": "Olá"}'
+
+# Acessar frontend no navegador
+open http://SEU-ALB-URL
+```
+
+* * * * *
+
 🛠️ Comandos Úteis
 ------------------
 
-### Terraform
+### Infraestrutura
 
 bash
 
 ```
-make init          # Inicializar Terraform
-make plan          # Ver mudanças planejadas
-make apply         # Aplicar mudanças
-make destroy       # Destruir infraestrutura
-make output        # Ver outputs
-make format        # Formatar código Terraform
-make validate      # Validar configuração
-```
+cd infrastructure
 
-### Docker
+# Ver outputs
+terraform output
 
-bash
+# Atualizar infraestrutura
+terraform apply
 
-```
-make docker-login           # Login no ECR
-make docker-build-backend   # Build imagem backend
-make docker-build-frontend  # Build imagem frontend
-make docker-push-backend    # Push backend para ECR
-make docker-push-frontend   # Push frontend para ECR
-make deploy                 # Build + Push + Update ECS
+# Destruir tudo
+terraform destroy
 ```
 
 ### Logs
@@ -382,8 +426,26 @@ make deploy                 # Build + Push + Update ECS
 bash
 
 ```
-make logs-backend    # Ver logs do backend
-make logs-frontend   # Ver logs do frontend
+# Backend
+aws logs tail /ecs/el-sabor-prod-backend --follow --region us-east-1
+
+# Frontend
+aws logs tail /ecs/el-sabor-prod-frontend --follow --region us-east-1
+```
+
+### Redeploy Rápido
+
+bash
+
+```
+# Apenas backend
+cd backend
+docker buildx build --platform linux/amd64 -t el-sabor-backend:latest .
+# ... (tag, push, update service)
+
+# Ou use o script
+chmod +x scripts/deploy.sh
+./scripts/deploy.sh
 ```
 
 * * * * *
@@ -391,46 +453,12 @@ make logs-frontend   # Ver logs do frontend
 🐛 Troubleshooting
 ------------------
 
-### Problema: "No healthy targets"
-
-bash
-
-```
-# Verificar logs do backend
-make logs-backend
-
-# Testar health check
-curl http://seu-alb-url/api/health
-
-# Verificar tasks rodando
-aws ecs list-tasks --cluster el-sabor-prod-backend-cluster
-```
-
-### Problema: "Cannot connect to database"
-
-bash
-
-```
-# Verificar endpoint do RDS
-cd terraform && terraform output rds_endpoint
-
-# Verificar security groups
-aws ec2 describe-security-groups --filters "Name=tag:Name,Values=el-sabor-prod-rds-sg"
-```
-
-### Problema: "Out of memory"
-
-Edite `terraform/variables.tf` e aumente `backend_memory`:
-
-hcl
-
-```
-variable "backend_memory" {
-  default = 2048  # Era 1024
-}
-```
-
-Depois execute `make apply`.
+| Problema | Solução |
+| --- | --- |
+| 503 Service Unavailable | Aguarde 2-3min para health checks passarem |
+| Tasks não iniciam | Verifique logs: `aws logs tail /ecs/el-sabor-prod-backend` |
+| Imagem não encontrada | Confirme push no ECR: `aws ecr list-images --repository-name el-sabor-prod-backend` |
+| Frontend não conecta | Verifique URL da API em `ChatInterface.tsx` |
 
 * * * * *
 
@@ -456,12 +484,6 @@ Depois execute `make apply`.
 2.  Reduza `desired_count` para 1 (-$20/mês)
 3.  Pare a infraestrutura quando não estiver usando:
 
-bash
-
-```
-make destroy  # Destruir tudo
-make apply    # Recriar quando precisar
-```
 
 * * * * *
 
